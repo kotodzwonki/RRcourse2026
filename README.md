@@ -10,3 +10,11 @@ Clone it (the fork) to your computer.
 Set a remote path to the original course repository. Use it to pull the new materials.
 Work on the assignment. Commit it. Push it to your repository fork.
 For a more detailed description of the setup check here: [setting up the course repository.](https://hackmd.io/@WHardy/git-setup25#/)
+
+Presentations:
+
+[Lecture 1](https://hackmd.io/@lZfE8oEoSYCXuLcnPjZgrw/H1Cc71UdWg)
+[Lecture 2](https://hackmd.io/@lZfE8oEoSYCXuLcnPjZgrw/Hk27BkLuWg#/)
+[Lecture 3](https://hackmd.io/@lZfE8oEoSYCXuLcnPjZgrw/SkrO6CA_Zl)
+[Lecture 4](https://hackmd.io/@lZfE8oEoSYCXuLcnPjZgrw/SkivKQuFWx)
+[Lecture 5 & 6](https://hackmd.io/@lZfE8oEoSYCXuLcnPjZgrw/SJ15Oyu9-e#/16)
