@@ -11,12 +11,62 @@ format:
 execute:
   echo: false
 ---
+```{r}
+warning = FALSE
+
+library(tidyverse)
+library(knitr)
+```
+
 
 # Game of Thrones  
+
+## Title and logo
 
 **Game of Thrones** is an American fantasy drama television series created by *David Benioff* and *D. B. Weiss* for **HBO**. It is the first adaptation of the *A Song of Ice and Fire* franchise, a series of high fantasy novels by *George R. R. Martin*, the first of which is *A Game of Thrones*. The show premiered on **HBO** in the United States on April 17, 2011, and concluded on May 19, 2019, with 73 episodes broadcast over eight seasons.
 
 ```{r}
 knitr::include_graphics("Game_of_Thrones_title_card.jpg")
 ```
+## Summary of statistics
+
+```{r}
+data <- read.csv("season_1.csv")
+```
+
+```{r}
+summary_stats <- data %>%
+  summarise(
+    mean_viewers = mean(viewers, na.rm = TRUE),
+    median_viewers = median(viewers, na.rm = TRUE),
+    min_viewers = min(viewers, na.rm = TRUE),
+    max_viewers = max(viewers, na.rm = TRUE),
+    sd_viewers = sd(viewers, na.rm = TRUE)
+  )
+
+kable(summary_stats, caption = "Summary Statistics of Viewership")
+```
+
+
+The summary statistics of episode viewership show that the average number of viewers is approximately **2.52** million, while the median is slightly lower at **2.45** million. This suggests that the distribution of viewership is relatively balanced, with no extreme skewness. The minimum viewership recorded is **2.20** million, and the maximum reaches **3.04** million, indicating a moderate range of audience size across episodes.
+
+
+```{r}
+ggplot(data, aes(x = premiere_date, y = viewers_change)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Episode-to-Episode Change in Viewership",
+    x = "Premiere Date",
+    y = "Change in Viewers (millions)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_blank(),   # removes date labels
+    axis.ticks.x = element_blank()   # removes tick marks
+  )
+```
+
+The graph shows that episode-to-episode changes in viewership fluctuate around zero, indicating relatively stable audience numbers with only small increases or decreases between episodes. While there are a few noticeable spikes, overall the variation is moderate rather than extreme.
+
 
