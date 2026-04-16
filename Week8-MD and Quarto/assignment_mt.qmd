@@ -12,7 +12,8 @@ execute:
   echo: false
 ---
 ```{r}
-warning = FALSE
+#| message: false
+#| warning: false
 
 library(tidyverse)
 library(knitr)
@@ -35,6 +36,8 @@ data <- read.csv("season_1.csv")
 ```
 
 ```{r}
+#| message: false
+#| warning: false
 summary_stats <- data %>%
   summarise(
     mean_viewers = mean(viewers, na.rm = TRUE),
@@ -50,8 +53,19 @@ kable(summary_stats, caption = "Summary Statistics of Viewership")
 
 The summary statistics of episode viewership show that the average number of viewers is approximately **2.52** million, while the median is slightly lower at **2.45** million. This suggests that the distribution of viewership is relatively balanced, with no extreme skewness. The minimum viewership recorded is **2.20** million, and the maximum reaches **3.04** million, indicating a moderate range of audience size across episodes.
 
+```{r}
+data <- data %>%
+  arrange(no_overall) %>%
+  mutate(
+    viewers_change = viewers - lag(viewers)
+  )
+
+```
+
 
 ```{r}
+#| message: false
+#| warning: false
 ggplot(data, aes(x = premiere_date, y = viewers_change)) +
   geom_line() +
   geom_point() +
@@ -69,4 +83,20 @@ ggplot(data, aes(x = premiere_date, y = viewers_change)) +
 
 The graph shows that episode-to-episode changes in viewership fluctuate around zero, indicating relatively stable audience numbers with only small increases or decreases between episodes. While there are a few noticeable spikes, overall the variation is moderate rather than extreme.
 
+## Analysis of Observed Changes
 
+```{r}
+
+max_increase <- max(data$viewers_change, na.rm = TRUE)
+max_decrease <- min(data$viewers_change, na.rm = TRUE)
+
+increase_episode <- data$no_overall[which.max(data$viewers_change)]
+decrease_episode <- data$no_overall[which.min(data$viewers_change)]
+
+```
+
+The largest increase in audience occurred before Episode `r increase_episode`, with viewership rising by `r round(max_increase, 2)` million.
+
+The largest decrease occurred before Episode `r decrease_episode`, with viewership falling by `r abs(round(max_decrease, 2))` million.
+
+Overall, the season demonstrated fluctuating audience engagement, with viewership peaking toward the final episodes.
